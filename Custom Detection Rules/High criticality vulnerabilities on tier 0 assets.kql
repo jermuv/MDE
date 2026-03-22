@@ -1,0 +1,8 @@
+DeviceInfo
+| where DeviceManualTags contains "TIER0"
+| join DeviceTvmSoftwareVulnerabilities on DeviceName
+| join DeviceTvmSoftwareVulnerabilitiesKB on CveId
+| where VulnerabilitySeverityLevel != "Low"
+| where VulnerabilitySeverityLevel != "Medium"
+| project-away TimeGenerated, PublicIP, IsAzureADJoined, JoinType, LoggedOnUsers, OnboardingStatus, AdditionalFields, MergedDeviceIds, DeviceManualTags, DeviceDynamicTags, HardwareUuid
+| project-away AzureResourceId, AzureVmSubscriptionId, OsBuildRevision, DiscoverySources, Type, DeviceId1, DeviceName1, OSPlatform1, Type1, Type2, VulnerabilitySeverityLevel1
